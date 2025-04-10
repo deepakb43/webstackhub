@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HTML Tutorial - Web Stack Hub</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #10b981;  /* Green */
+      --primary-dark: #0d9e6e;
+      --secondary: #1a1a1a;  /* Dark gray/black */
+      --dark: #000000;  /* Pure black */
+      --light: #f8fafc;
+      --gray: #666666;
+      --success: #10b981;
+      --w3-green: #04AA6D; /* W3Schools green */
+      --w3-gray: #282A35; /* W3Schools dark gray */
+      --background-light: #f0f4f8;
+    }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background-light);
+      min-height: 100vh;
+      color: var(--dark);
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+    }
+    /* Smooth scroll behavior */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Header Styles */
+    header {
+      background: rgba(255, 255, 255, 0.95);
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+      color: var(--dark);
+      display: flex;
+      justify-content: space-between;
+      padding: 0 1.5rem;
+      align-items: center;
+      position: fixed;
+      width: 100%;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      height: 60px;
+      transition: all 0.3s ease;
+      box-sizing: border-box;
+    }
+
+    /* New Logo Styles */
+    .logo-container {
+      display: inline-flex;
+      align-items: center;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--dark);
+      text-decoration: none;
+      transition: transform 0.3s ease;
+    }
+    .logo-container:hover {
+      transform: scale(1.02);
+    }
+    .logo-symbol {
+      position: relative;
+      width: 32px;
+      height: 32px;
+      margin-right: 10px;
+      overflow: visible;
+    }
+    .logo-layer {
+      position: absolute;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+    }
+    .layer-1 {
+      width: 24px;
+      height: 24px;
+      background: var(--primary);
+      transform: rotate(45deg);
+      z-index: 3;
+      left: 4px;
+      top: 4px;
+      box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+    }
+    .layer-2 {
+      width: 24px;
+      height: 24px;
+      background: rgba(16, 185, 129, 0.85);
+      transform: rotate(45deg) translate(-4px, -4px);
+      z-index: 2;
+    }
+    .layer-3 {
+      width: 24px;
+      height: 24px;
+      background: rgba(16, 185, 129, 0.6);
+      transform: rotate(45deg) translate(-8px, -8px);
+      z-index: 1;
+    }
+    .logo-container:hover .layer-1 {
+      transform: rotate(45deg) scale(1.1);
+    }
+    .logo-container:hover .layer-2 {
+      transform: rotate(45deg) translate(-5px, -5px) scale(1.05);
+    }
+    .logo-container:hover .layer-3 {
+      transform: rotate(45deg) translate(-10px, -10px);
+    }
+    .logo-text {
+      display: flex;
+      align-items: baseline;
+      position: relative;
+    }
+    .web {
+      color: var(--dark);
+      transition: color 0.3s ease;
+    }
+    .stack {
+      color: var(--primary);
+      position: relative;
+      transition: color 0.3s ease;
+    }
+    .stack::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--secondary);
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.3s ease;
+    }
+    .logo-container:hover .stack::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+    .hub {
+      font-weight: 600;
+      font-size: 0.55em;
+      color: var(--dark);
+      position: absolute;
+      right: -2px;
+      top: -9px;
+      letter-spacing: 0.05em;
+      transition: color 0.3s ease;
+    }
+
+    /* Navigation and Dropdown Menu Styles */
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+      padding: 0;
+      margin: 0;
+    }
+    nav ul li {
+      position: relative;
+    }
+    nav ul li a {
+      color: var(--dark);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      position: relative;
+      padding: 0.5rem 0;
+      cursor: pointer;
+    }
+    nav ul li a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: width 0.3s ease;
+    }
+    nav ul li a:hover::after,
+    nav ul li a.active::after {
+      width: 100%;
+    }
+    nav ul li a:hover {
+      color: var(--primary);
+    }
+    nav ul li a i {
+      font-size: 1.1rem;
+    }
+
+        .hero {
+            text-align: center;
+            padding: 5rem 1rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            animation: fadeInUp 1s ease;
+        }
+        
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            position: relative;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+        
+        .hero .search-container {
+            display: flex;
+            justify-content: center;
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+        
+        .hero input {
+            padding: 0.75rem 1.5rem;
+            width: 100%;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .search-btn {
+            padding: 0.75rem 1.5rem;
+            background: var(--secondary);
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 1rem;
+        }
+        
+        .search-btn:hover {
+            background: #e69009;
+            transform: translateY(-2px);
+        }
+
+        /* Auth button styles - W3Schools exact */
+        .auth-buttons {
+            display: flex;
+            gap: 0.5rem;
+            margin-left: 1rem;
+        }
+
+        .auth-btn {
+            background: #04AA6D;
+            color: white !important;
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            text-decoration: none;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .auth-btn:hover {
+            background: #059862;
+            transform: scale(1.02);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .signup-btn {
+            background: #616161;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .signup-btn:hover {
+            background: #4d4d4d;
+            transform: scale(1.02);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .auth-btn i {
+            font-size: 0.9rem;
+        }
+
+        /* New Header Styles */
+        .logo-container {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            gap: 0.5rem;
+        }
+
+        .logo-symbol {
+            position: relative;
+            width: 30px;
+            height: 30px;
+        }
+
+        .logo-layer {
+            position: absolute;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .layer-1 {
+            width: 100%;
+            height: 100%;
+            background: var(--primary);
+            opacity: 0.8;
+            transform: rotate(0deg);
+        }
+
+        .layer-2 {
+            width: 70%;
+            height: 70%;
+            background: var(--primary);
+            top: 15%;
+            left: 15%;
+            opacity: 0.6;
+            transform: rotate(15deg);
+        }
+
+        .layer-3 {
+            width: 40%;
+            height: 40%;
+            background: var(--primary);
+            top: 30%;
+            left: 30%;
+            opacity: 0.4;
+            transform: rotate(30deg);
+        }
+
+        .logo-text {
+            display: flex;
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--dark);
+        }
+
+        .logo-text .web {
+            color: var(--dark);
+        }
+
+        .logo-text .stack {
+            color: var(--primary);
+        }
+
+        .logo-text .hub {
+            color: var(--dark);
+        }
+
+        .menu-button {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: var(--dark);
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background: white;
+            min-width: 800px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            z-index: 1;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .dropdown-content .col {
+            flex: 1;
+        }
+
+        .dropdown-content h3 {
+            margin: 0 0 0.5rem 0;
+            color: var(--primary);
+            font-size: 0.9rem;
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: 0.3rem 0;
+            color: var(--dark);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .dropdown-content a:hover {
+            color: var(--primary);
+        }
+
+        .dropdown-content i {
+            margin-right: 0.5rem;
+            width: 16px;
+            text-align: center;
+        }
+
+        .right-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            width: 40px;
+            height: 40px;
+        }
+
+        .theme-toggle i {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle .fa-sun {
+            opacity: 0;
+        }
+
+        /* Mobile Navigation */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+        }
+
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 80%;
+            max-width: 300px;
+            height: 100%;
+            background: white;
+            z-index: 1000;
+            padding: 1rem;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        .mobile-nav ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .mobile-nav li {
+            margin-bottom: 0.5rem;
+        }
+
+        .mobile-nav a {
+            display: block;
+            padding: 0.5rem;
+            color: var(--dark);
+            text-decoration: none;
+        }
+
+        .mobile-dropdown-content {
+            display: none;
+            padding-left: 1rem;
+        }
+
+        .mobile-dropdown-content a {
+            padding: 0.3rem 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .mobile-dropdown-content i {
+            margin-right: 0.5rem;
+        }
+
+        .mobile-auth-buttons {
+            margin-top: 1rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        @media (max-width: 1024px) {
+            nav ul {
+                display: none;
+            }
+            
+            .menu-button {
+                display: block;
+            }
+            
+            .right-controls .auth-buttons {
+                display: none;
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+    /* Sidebar Styles */
+    .sidebar {
+      width: 240px;
+      background: white;
+      position: fixed;
+      top: 60px; /* Matches header height */
+      height: calc(100vh - 60px); /* Matches header height */
+      padding: 0.75rem 0;
+      z-index: 90;
+      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+      border-right: 1px solid rgba(0, 0, 0, 0.05);
+      transform: translateX(0);
+      transition: transform 0.3s ease;
+      overflow-y: auto;
+    }
+    .sidebar-nav {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .sidebar-nav li {
+      padding: 0.5rem 1.5rem;
+      transition: all 0.3s ease;
+    }
+    .sidebar-nav li:hover {
+      background: rgba(37, 99, 235, 0.05);
+    }
+    .sidebar-nav li a {
+      color: var(--dark);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+    .sidebar-nav li a:hover {
+      color: var(--primary);
+      transform: translateX(5px);
+    }
+    .sidebar-nav li a i {
+      font-size: 1.2rem;
+      width: 24px;
+      text-align: center;
+    }
+    /* Main Content Styles */
+    .main-content {
+      margin-left: 260px; /* Matches sidebar width */
+      padding: 80px 2rem 2rem; /* Adjusted padding, 80px matches header + some space */
+      width: calc(100% - 260px);
+      max-width: 100%;
+      box-sizing: border-box;
+      flex: 1;
+    }
+
+    /* Tutorial Content Styles */
+    .tutorial-content {
+        background: white;
+        padding: 2rem;
+        border-radius: 1rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    h1 {
+      margin-top: 0;
+    }
+
+    section {
+      margin-top: 2rem;
+    }
+  </style>
+  <!-- CodeMirror for live coding -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/dracula.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/htmlmixed/htmlmixed.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/css/css.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/javascript/javascript.min.js"></script>
+</head>
+<body>
+  <header>
+    <!-- New Logo -->
+    <a href="#" class="logo-container">
+        <div class="logo-symbol">
+            <div class="logo-layer layer-1"></div>
+            <div class="logo-layer layer-2"></div>
+            <div class="logo-layer layer-3"></div>
+        </div>
+        <div class="logo-text">
+            <span class="web">WEB</span>
+            <span class="stack">STACK</span>
+            <span class="hub">HUB</span>
+        </div>
+    </a>
+    <button class="menu-button" aria-label="Toggle menu">
+        <i class="fas fa-bars"></i>
+    </button>
+    <nav>
+    <ul>
+    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle"><i class="fas fa-book"></i> Tutorials <i class="fas fa-caret-down"></i></a>
+        <div class="dropdown-content">
+            <div class="col">
+                <h3>Web Development</h3>
+                <a href="#"><i class="fab fa-html5"></i> HTML</a>
+                <a href="#"><i class="fab fa-css3-alt"></i> CSS</a>
+                <a href="#"><i class="fab fa-js"></i> JavaScript</a>
+                <a href="#"><i class="fab fa-react"></i> React</a>
+                <a href="#"><i class="fab fa-angular"></i> Angular</a>
+                <a href="#"><i class="fab fa-vuejs"></i> Vue.js</a>
+                <a href="#"><i class="fab fa-bootstrap"></i> Bootstrap</a>
+                <a href="#"><i class="fab fa-sass"></i> SASS</a>
+                <a href="#"><i class="fab fa-less"></i> Less</a>
+            </div>
+            <div class="col">
+                <h3>Server Side</h3>
+                <a href="#"><i class="fab fa-node-js"></i> Node.js</a>
+                <a href="#"><i class="fab fa-php"></i> PHP</a>
+                <a href="#"><i class="fas fa-gem"></i> Ruby</a>
+                <a href="#"><i class="fab fa-python"></i> Python</a>
+                <a href="#"><i class="fab fa-java"></i> Java</a>
+                <a href="#"><i class="fab fa-cuttlefish"></i> C#</a>
+                <a href="#"><i class="fas fa-database"></i> SQL</a>
+                <a href="#"><i class="fas fa-server"></i> ASP.NET</a>
+                <a href="#"><i class="fab fa-golang"></i> Go</a>
+            </div>
+            <div class="col">
+                <h3>Data Science & AI</h3>
+                <a href="#"><i class="fas fa-brain"></i> Machine Learning</a>
+                <a href="#"><i class="fas fa-robot"></i> AI Basics</a>
+                <a href="#"><i class="fas fa-chart-line"></i> Data Analysis</a>
+                <a href="#"><i class="fab fa-r-project"></i> R Programming</a>
+                <a href="#"><i class="fas fa-atom"></i> Deep Learning</a>
+                <a href="#"><i class="fas fa-project-diagram"></i> Neural Networks</a>
+            </div>
+            <div class="col">
+                <h3>Mobile Development</h3>
+                <a href="#"><i class="fab fa-android"></i> Android</a>
+                <a href="#"><i class="fab fa-apple"></i> iOS</a>
+                <a href="#"><i class="fab fa-react"></i> React Native</a>
+                <a href="#"><i class="fab fa-swift"></i> Swift</a>
+                <a href="#"><i class="fab fa-kotlin"></i> Kotlin</a>
+                <a href="#"><i class="fab fa-flutter"></i> Flutter</a>
+            </div>
+        </div>
+    </li>
+    <li><a href="#"><i class="fas fa-file-code"></i> References</a></li>
+    <li><a href="#"><i class="fas fa-code"></i> Exercises</a></li>
+    <li><a href="#"><i class="fas fa-project-diagram"></i> Projects</a></li>
+    <li><a href="#"><i class="fas fa-users"></i> Community</a></li>
+    </ul>
+    </nav>
+    <div class="right-controls">
+    <button class="theme-toggle" title="Toggle Dark Mode" aria-label="Toggle Dark Mode" role="switch" aria-checked="false">
+        <i class="fas fa-moon"></i>
+        <i class="fas fa-sun"></i>
+    </button>
+    <div class="auth-buttons">
+        <a href="#" class="auth-btn login-btn">Log in</a><a href="#" class="auth-btn signup-btn">Sign Up</a>
+    </div>
+    </div>
+  </header>
+
+  <!-- Mobile Navigation -->
+  <div class="overlay"></div>
+  <div class="mobile-nav">
+    <ul>
+      <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+      <li class="mobile-dropdown">
+          <a href="#" class="mobile-dropdown-toggle"><i class="fas fa-book"></i> Tutorials <i class="fas fa-caret-down"></i></a>
+          <div class="mobile-dropdown-content">
+              <h3>Web Development</h3>
+              <a href="#"><i class="fab fa-html5"></i> HTML</a>
+              <a href="#"><i class="fab fa-css3-alt"></i> CSS</a>
+              <a href="#"><i class="fab fa-js"></i> JavaScript</a>
+              <a href="#"><i class="fab fa-react"></i> React</a>
+              <a href="#"><i class="fab fa-angular"></i> Angular</a>
+              <a href="#"><i class="fab fa-vuejs"></i> Vue.js</a>
+              
+              <h3>Server Side</h3>
+              <a href="#"><i class="fab fa-node-js"></i> Node.js</a>
+              <a href="#"><i class="fab fa-php"></i> PHP</a>
+              <a href="#"><i class="fab fa-python"></i> Python</a>
+              <a href="#"><i class="fab fa-java"></i> Java</a>
+              <a href="#"><i class="fas fa-database"></i> SQL</a>
+              
+              <h3>Data Science & AI</h3>
+              <a href="#"><i class="fas fa-brain"></i> Machine Learning</a>
+              <a href="#"><i class="fas fa-robot"></i> AI Basics</a>
+              <a href="#"><i class="fas fa-chart-line"></i> Data Analysis</a>
+              
+              <h3>Mobile Development</h3>
+              <a href="#"><i class="fab fa-android"></i> Android</a>
+              <a href="#"><i class="fab fa-apple"></i> iOS</a>
+              <a href="#"><i class="fab fa-react"></i> React Native</a>
+          </div>
+      </li>
+      <li><a href="#"><i class="fas fa-file-code"></i> References</a></li>
+      <li><a href="#"><i class="fas fa-code"></i> Exercises</a></li>
+      <li><a href="#"><i class="fas fa-project-diagram"></i> Projects</a></li>
+      <li><a href="#"><i class="fas fa-users"></i> Community</a></li>
+    </ul>
+    <div class="mobile-auth-buttons">
+      <a href="#" class="auth-btn login-btn">Log in</a><a href="#" class="auth-btn signup-btn">Sign Up</a>
+    </div>
+  </div>
+
+  <section class="hero">
+    <h1>HTML Tutorial</h1>
+    <p>Learn the foundation of web development with HTML</p>
+    <div class="search-container">
+      <input type="text" placeholder="Search tutorials...">
+      <button class="search-btn" title="Search tutorials"><i class="fas fa-search"></i></button>
+    </div>
+  </section>
+
+  <div class="sidebar">
+    <ul class="sidebar-nav">
+      <li><a href="#intro"><i class="fas fa-info-circle"></i> Introduction</a></li>
+      <li><a href="#syntax"><i class="fas fa-code"></i> Basic Syntax</a></li>
+      <li><a href="#elements"><i class="fas fa-cubes"></i> HTML Elements</a></li>
+      <li><a href="#attributes"><i class="fas fa-tag"></i> Attributes</a></li>
+      <li><a href="#structure"><i class="fas fa-sitemap"></i> Page Structure</a></li>
+    </ul>
+  </div>
+
+  <div class="main-content">
+    <div class="tutorial-content">
+      <section id="intro">
+        <h2>Introduction</h2>
+        <p>HTML (HyperText Markup Language) is the standard markup language used to create the structure of web pages. It defines elements like headings, paragraphs, links, images, and more.</p>
+      </section>
+
+      <section id="syntax">
+        <h2>Basic Syntax</h2>
+        <p>HTML consists of tags wrapped in angle brackets. Example:</p>
+        <pre><code>&lt;p&gt;Hello World&lt;/p&gt;</code></pre>
+      </section>
+
+      <section id="elements">
+        <h2>HTML Elements</h2>
+        <p>Elements are the building blocks of HTML. Common ones include:</p>
+        <ul>
+          <li><code>&lt;h1&gt; to &lt;h6&gt;</code> - Headings</li>
+          <li><code>&lt;p&gt;</code> - Paragraph</li>
+          <li><code>&lt;a&gt;</code> - Anchor (link)</li>
+          <li><code>&lt;img&gt;</code> - Image</li>
+          <li><code>&lt;div&gt;</code> - Division/Container</li>
+        </ul>
+      </section>
+
+      <section id="attributes">
+        <h2>Attributes</h2>
+        <p>Attributes provide additional information about elements. For example:</p>
+        <pre><code>&lt;a href="https://webstackhub.com"&gt;Visit Us&lt;/a&gt;</code></pre>
+      </section>
+
+      <section id="structure">
+        <h2>HTML Page Structure</h2>
+        <p>A basic HTML page structure includes:</p>
+        <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Page Title&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Heading&lt;/h1&gt;
+    &lt;p&gt;Paragraph&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+      </section>
+    </div>
+    
+    <!-- Code Editor Section -->
+    <section class="code-editor" style="margin: 2rem; background: white; border-radius: 1rem; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); overflow: hidden;">
+      <div class="editor-tabs" style="display: flex; background: var(--primary); color: white;">
+        <button class="tab active" data-lang="html" style="padding: 0.75rem 1.5rem; background: var(--primary-dark); border: none; color: white; cursor: pointer;">HTML</button>
+        <button class="tab" data-lang="css" style="padding: 0.75rem 1.5rem; background: transparent; border: none; color: white; cursor: pointer;">CSS</button>
+        <button class="tab" data-lang="js" style="padding: 0.75rem 1.5rem; background: transparent; border: none; color: white; cursor: pointer;">JS</button>
+      </div>
+      
+      <div id="editor" style="height: 300px;"></div>
+      
+      <div style="padding: 1rem; display: flex; justify-content: space-between; align-items: center; background: #f8fafc;">
+        <button id="run-btn" style="padding: 0.75rem 1.5rem; background: var(--primary); color: white; border: none; border-radius: 0.5rem; cursor: pointer; font-weight: 600;">Run Code</button>
+        <span style="color: var(--gray); font-size: 0.9rem;">Live updates enabled</span>
+      </div>
+      
+      <div class="preview-container" style="border-top: 1px solid #e2e8f0; padding: 1rem;">
+        <h3 style="margin-top: 0; color: var(--dark);">Preview</h3>
+        <iframe id="preview" style="width: 100%; height: 300px; border: 1px solid #e2e8f0; border-radius: 0.5rem; background: white;"></iframe>
+      </div>
+    </section>
+    
+    <script>
+      // Initialize CodeMirror
+      const editor = CodeMirror(document.getElementById('editor'), {
+        mode: 'htmlmixed',
+        theme: 'dracula',
+        lineNumbers: true,
+        autoCloseTags: true,
+        autoCloseBrackets: true,
+        extraKeys: {'Ctrl-Space': 'autocomplete'},
+        value: '<!DOCTYPE html>\n<html>\n<head>\n  <title>My Page</title>\n</head>\n<body>\n  <h1>Hello World</h1>\n</body>\n</html>'
+      });
+      
+      // Tab switching
+      const tabs = document.querySelectorAll('.tab');
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          tabs.forEach(t => t.style.background = 'transparent');
+          tab.style.background = 'var(--primary-dark)';
+          
+          if (tab.dataset.lang === 'html') {
+            editor.setOption('mode', 'htmlmixed');
+          } else if (tab.dataset.lang === 'css') {
+            editor.setOption('mode', 'css');
+          } else if (tab.dataset.lang === 'js') {
+            editor.setOption('mode', 'javascript');
+          }
+        });
+      });
+      
+      // Run button and live preview
+      const runBtn = document.getElementById('run-btn');
+      const preview = document.getElementById('preview').contentWindow.document;
+      
+      function updatePreview() {
+        preview.open();
+        preview.write(editor.getValue());
+        preview.close();
+      }
+      
+      runBtn.addEventListener('click', updatePreview);
+      
+      // Live updates
+      editor.on('change', () => {
+        updatePreview();
+      });
+      
+      // Initial update taskkill /f /im node.exe
+      updatePreview();
+    </script>
+  </div>
+</body>
+</html>

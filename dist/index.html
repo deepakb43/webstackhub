@@ -1,0 +1,822 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Stack - Learn Web Development</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+    <style>
+        :root {
+            --primary: #10b981;  /* Green */
+            --primary-dark: #0d9e6e;
+            --secondary: #1a1a1a;  /* Dark gray/black */
+            --dark: #000000;  /* Pure black */
+            --light: #f8fafc;
+            --gray: #666666;
+            --success: #10b981;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            min-height: 100vh;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        /* Smooth scroll behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Header Styles */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            color: var(--dark);
+            display: flex;
+            justify-content: flex-start;
+            padding: 0 1.5rem;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            height: 60px;
+            transition: all 0.3s ease;
+            overflow-x: auto;
+            white-space: nowrap;
+            gap: 2rem;
+        }
+
+        .logo {
+            margin-right: 2rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        nav ul {
+            flex-shrink: 0;
+            padding: 0 0.5rem;
+        }
+        
+        .main-content {
+            margin-left: 260px; /* Adjusted to match sidebar width */
+            padding: 4rem 2rem 2rem; /* Adjusted top padding */
+            width: calc(100% - 260px);
+        }
+
+        .hero {
+            text-align: center;
+            padding: 5rem 1rem; /* Updated padding */
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero .search-container {
+            display: flex;
+            justify-content: center;
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .hero input {
+            padding: 0.75rem 1.5rem; /* Updated padding */
+            width: 100%;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            max-width: 100%;
+        }
+
+        header.scrolled {
+            height: 60px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .stack { 
+            color: var(--primary);
+            position: relative;
+        }
+
+        .stack::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--secondary);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover .stack::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 1.5rem;
+            padding: 0;
+            margin: 0;
+        }
+        
+        nav ul li a {
+            color: var(--dark);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        nav ul li a:hover::after,
+        nav ul li a.active::after {
+            width: 100%;
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+
+        nav ul li a i {
+            font-size: 1.1rem;
+        }
+        
+        /* Sidebar Styles */
+        .sidebar {
+            width: 240px;
+            background: white;
+            position: fixed;
+            top: 60px; /* Matches header height */
+            height: calc(100vh - 60px); /* Matches header height */
+            padding: 0.75rem 0;
+            z-index: 90;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+            border-right: 1px solid rgba(0, 0, 0, 0.05);
+            transform: translateX(0);
+            transition: transform 0.3s ease;
+            overflow-y: auto;
+        }
+        
+        .sidebar-nav {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .sidebar-nav li {
+            padding: 0.5rem 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .sidebar-nav li:hover {
+            background: rgba(37, 99, 235, 0.05);
+        }
+        
+        .sidebar-nav li a {
+            color: var(--dark);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .sidebar-nav li a:hover {
+            color: var(--primary);
+            transform: translateX(5px);
+        }
+
+        .sidebar-nav li a i {
+            font-size: 1.2rem;
+            width: 24px;
+            text-align: center;
+        }
+        
+        /* Main Content Styles */
+        .main-content {
+            margin-left: 260px; /* Matches sidebar width */
+            padding: 4rem 2rem 2rem;
+            width: calc(100% - 260px);
+        }
+        
+        /* Hero Section */
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            animation: fadeInUp 1s ease;
+        }
+        
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            position: relative;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+        
+        .hero .search-container {
+            display: flex;
+            justify-content: center;
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+        
+        .hero input {
+            padding: 0.75rem 1.5rem; /* Updated padding */
+            width: 100%;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .search-btn {
+            padding: 0.75rem 1.5rem; /* Updated padding */
+            background: var(--secondary);
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 1rem; /* Added margin */
+        }
+        
+        .search-btn:hover {
+            background: #e69009;
+            transform: translateY(-2px);
+        }
+        
+        /* Topics Section */
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 4px;
+            background: var(--secondary);
+            margin: 0.5rem auto 0;
+            border-radius: 2px;
+        }
+
+        .section-title p {
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .card {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 0;
+            background: var(--primary);
+            transition: height 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .card:hover::before {
+            height: 100%;
+        }
+        
+        .card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+            color: var(--dark);
+        }
+        
+        .card p {
+            color: var(--gray);
+            margin-bottom: 1.5rem; 
+        }
+        
+        .learn-btn {
+            padding: 0.75rem 1.5rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .learn-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(37, 99, 235, 0.2);
+        }
+
+        /* Auth button styles - W3Schools exact */
+        .auth-buttons {
+            display: flex;
+            gap: 0.5rem;
+            margin-left: 1rem;
+        }
+
+        .auth-btn {
+            background: #04AA6D;
+            color: white !important;
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            text-decoration: none;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .auth-btn:hover {
+            background: #059862;
+            transform: scale(1.02);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .signup-btn {
+            background: #616161;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .signup-btn:hover {
+            background: #4d4d4d;
+            transform: scale(1.02);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .auth-btn i {
+            font-size: 0.9rem;
+        }
+
+        .learn-btn i {
+            transition: transform 0.3s ease;
+        }
+
+        .learn-btn:hover i {
+            transform: translateX(3px);
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: var(--dark);
+            color: white;
+            margin-top: 4rem;
+            border-radius: 1rem 1rem 0 0;
+        }
+
+        footer p {
+            margin: 0;
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Dark Mode Styles */
+        .dark-mode {
+            background: #121212;
+            color: #f8f8f8;
+        }
+        .dark-mode .card,
+        .dark-mode .sidebar,
+        .dark-mode header {
+            background: #1e1e1e;
+            color: #f8f8f8;
+            border-color: #333;
+        }
+        .dark-mode .card:hover {
+            box-shadow: 0 10px 15px rgba(255, 255, 255, 0.1);
+        }
+        .dark-mode nav ul li a,
+        .dark-mode .sidebar-nav li a {
+            color: #f8f8f8;
+        }
+        .dark-mode .section-title p {
+            color: #aaa;
+        }
+        .dark-mode .card p {
+            color: #ccc;
+        }
+
+        /* Theme toggle button accessibility */
+        .theme-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            margin-left: auto;
+        }
+        .theme-toggle .fa-sun {
+            display: none;
+        }
+        .dark-mode .theme-toggle .fa-moon {
+            display: none;
+        }
+        .dark-mode .theme-toggle .fa-sun {
+            display: inline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1000px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
+    <script>
+        // Add scroll effect to header
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Add animation to cards when they come into view
+        const cards = document.querySelectorAll('.card');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        cards.forEach(card => {
+            card.style.opacity = 0;
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            observer.observe(card);
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            Web <span class="stack">Stack</span>
+            <span class="hub">Hub</span>
+        </div>
+        <button class="theme-toggle" title="Toggle Dark Mode" aria-label="Toggle Dark Mode" role="switch" aria-checked="false">
+            <span class="theme-text">Dark Mode</span>
+            <span class="theme-icon" aria-hidden="true">
+                <i class="fas fa-moon"></i>
+                <i class="fas fa-sun"></i>
+            </span>
+        </button>
+        <div class="header-search">
+            <input type="text" placeholder="Search tutorials...">
+            <button class="search-btn" title="Search"><i class="fas fa-search"></i></button>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="#"><i class="fas fa-book"></i> Tutorials</a></li>
+                <li><a href="#"><i class="fas fa-file-code"></i> References</a></li>
+                <li><a href="#"><i class="fas fa-code"></i> Exercises</a></li>
+                <li><a href="#"><i class="fas fa-project-diagram"></i> Projects</a></li>
+                <li><a href="#"><i class="fas fa-users"></i> Community</a></li>
+                <li><a href="/dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+            </ul>
+        </nav>
+        <div class="auth-buttons">
+            <a href="#" class="auth-btn"><i class="fas fa-user"></i> Login</a>
+            <a href="#" class="auth-btn signup-btn"><i class="fas fa-user-plus"></i> Sign Up</a>
+        </div>
+    </header>
+
+    <div class="sidebar">
+        <ul class="sidebar-nav">
+            <li><a href="#"><i class="fas fa-html5"></i> HTML</a></li>
+            <li><a href="#"><i class="fas fa-css3-alt"></i> CSS</a></li>
+            <li><a href="#"><i class="fab fa-js"></i> JavaScript</a></li>
+            <li><a href="#"><i class="fab fa-python"></i> Python</a></li>
+            <li><a href="#"><i class="fab fa-java"></i> Java</a></li>
+            <li><a href="#"><i class="fas fa-database"></i> SQL</a></li>
+            <li><a href="#"><i class="fab fa-node-js"></i> Node.js</a></li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <section class="hero">
+            <h1>Master Web Development</h1>
+            <p>Interactive tutorials, real-time coding, and expert guidance—all in one place.</p>
+            <input type="text" placeholder="Search tutorials...">
+            <button class="search-btn">Search</button>
+        </section>
+        
+        <section class="topics">
+            <h2>Explore Our Tutorials</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>HTML</h3>
+                    <p>Learn the structure of web pages.</p>
+                    <button class="learn-btn">Start Learning</button>
+                </div>
+                <div class="card">
+                    <h3>CSS</h3>
+                    <p>Style your websites beautifully.</p>
+                    <button class="learn-btn">Start Learning</button>
+                </div>
+                <div class="card">
+                    <h3>JavaScript</h3>
+                    <p>Make your site interactive.</p>
+                    <button class="learn-btn">Start Learning</button>
+                </div>
+                <div class="card">
+                    <h3>Python</h3>
+                    <p>Powerful scripting for the web.</p>
+                    <button class="learn-btn">Start Learning</button>
+                </div>
+                <div class="card">
+                    <h3>Java</h3>
+                    <p>Essential for backend and Android development.</p>
+                    <button class="learn-btn">Start Learning</button>
+                </div>
+                <div class="card">
+                    <h3>SQL</h3>
+                    <p>Master database management.</p>
+                    <button class="learn-btn">Start Learning</button>
+                </div>
+                <div class="card">
+                    <h3>C++</h3>
+                    <p>Learn high-performance programming.</p>
+                    <button class="learn-btn">Start Learning</button>
+                </div>
+                <div class="card">
+                    <h3>Swift</h3>
+                    <p>Develop iOS applications.</p>
+                    <button class="learn-btn">Start Learning</button>
+                </div>
+                <div class="card">
+                    <h3>DevOps</h3>
+                    <p>Master CI/CD, Docker, Kubernetes.</p>
+                    <button class="learn-btn">Start Learning</button>
+                </div>
+                <div class="card">
+                    <h3>Cloud Computing</h3>
+                    <p>Learn AWS, Azure, and Google Cloud.</p>
+                    <button class="learn-btn">Start Learning</button>
+                </div>
+                <div class="card">
+                    <h3>Cybersecurity</h3>
+                    <p>Protect systems and networks.</p>
+                    <button class="learn-btn">Start Learning</button>
+                </div>
+                <div class="card">
+                    <h3>Machine Learning</h3>
+                    <p>Understand AI and deep learning.</p>
+                    <button class="learn-btn">Start Learning</button>
+                </div>
+            </div>
+        </section>
+        
+        <section class="languages">
+            <h2>Expand Your Skillset</h2>
+            <p>Explore a wide range of languages and tools that are in-demand in today's tech industry. Whether you're looking to dive into web development, mobile apps, data science, or blockchain, we've got you covered.</p>
+            
+            <div class="grid">
+                <div class="card">
+                    <h3>TypeScript</h3>
+                    <p>A superset of JavaScript that offers static typing, making large-scale development easier and less error-prone.</p>
+                    <button class="learn-btn">Start Learning</button>
+                </div>
+                <div class="card">
+                    <h3>SASS/SCSS</h3>
+                    <p>A CSS preprocessor that extends CSS with variables, nested rules, and functions for more maintainable stylesheets.</p>
+                    <button class="learn-btn">Start Learning</button>
+                </div>
+                <div class="card">
+                    <h3>Less</h3>
+                    <p>A powerful CSS preprocessor that helps you write more maintainable CSS code with variables and mixins.</p>
+                    <button class="learn-btn">Start Learning</button>
+                </div>
+                <div class="card">
+                    <h3>Elm</h3>
+                    <p>A functional language for front-end development that compiles to JavaScript and provides strong type safety.</p>
+                    <button class="learn-btn">Start Learning</button>
+                </div>
+                <div class="card">
+                    <h3>ReasonML</h3>
+                    <p>A functional programming language built for fast and reliable web applications, based on OCaml.</p>
+                    <button class="learn-btn">Start Learning</button>
+                </div>
+                <div class="card">
+                    <h3>Rust</h3>
+                    <p>A systems programming language focused on safety, speed, and concurrency.</p>
+                    <button class="learn-btn">Start Learning</button>
+                </div>
+                <div class="card">
+                    <h3>Elixir</h3>
+                    <p>A functional, concurrent programming language used for building scalable applications.</p>
+                    <button class="learn-btn">Start Learning</button>
+                </div>
+                <div class="card">
+                    <h3>Haskell</h3>
+                    <p>A purely functional programming language known for its strong type system and mathematical precision.</p>
+                    <button class="learn-btn">Start Learning</button>
+                </div>
+                <div class="card">
+                    <h3>Scala</h3>
+                    <p>A hybrid functional and object-oriented language that runs on the JVM, often used in big data processing.</p>
+                    <button class="learn-btn">Start Learning</button>
+                </div>
+                <div class="card">
+                    <h3>Perl</h3>
+                    <p>A highly capable, feature-rich programming language used for system administration, web development, and network programming.</p>
+                    <button class="learn-btn">Start Learning</button>
+                </div>
+            </div>
+        </section>           
+        <footer>
+            <p>&copy; 2025 Web Stack. All Rights Reserved.</p>
+        </footer>
+    </div>
+    
+    <script>
+        // Theme toggle functionality
+        const themeToggle = document.querySelector('.theme-toggle');
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            
+            // Save preference to localStorage
+            const isDark = document.body.classList.contains('dark-mode');
+            localStorage.setItem('darkMode', isDark);
+        });
+
+        // Check for saved theme preference
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark-mode');
+        }
+
+        // Handle dashboard link click
+        const dashboardLink = document.getElementById('dashboardLink');
+        if (dashboardLink) {
+            dashboardLink.addEventListener('click', (e) => {
+                // Let the browser handle the navigation
+            });
+        }
+
+        // Button click handlers
+        const buttons = document.querySelectorAll('.learn-btn');
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                alert('Redirecting to tutorial...');
+            });
+        });
+    </script>
+</body>
+</html>
