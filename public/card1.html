@@ -1656,32 +1656,40 @@ body.dark-mode #code-compiler iframe#codePreview {
                     <h2>HTML Document Structure</h2>
                     <p>Every HTML document follows a basic structure that includes several key components:</p>
                     
-                  <div id="code-compiler" style="margin: 2rem auto; max-width: 1000px; font-family: 'Segoe UI', sans-serif;">
+<div id="code-compiler" style="margin: 2rem auto; max-width: 1000px; font-family: 'Segoe UI', sans-serif;">
   <div style="border-radius: 10px; overflow: hidden; background: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+    
+    <!-- Tabs -->
     <div style="display: flex; background-color: #00c896; color: #fff; font-weight: bold;">
       <button onclick="switchTab('htmlEditor')" style="flex: 1; padding: 0.75rem; border: none; background: transparent; cursor: pointer;">HTML</button>
       <button onclick="switchTab('cssEditor')" style="flex: 1; padding: 0.75rem; border: none; background: transparent; cursor: pointer;">CSS</button>
       <button onclick="switchTab('jsEditor')" style="flex: 1; padding: 0.75rem; border: none; background: transparent; cursor: pointer;">JS</button>
     </div>
 
-    <label for="htmlEditor1" class="sr-only">HTML Editor</label>
-    <textarea id="htmlEditor1" class="editor-box" placeholder="Write your HTML code here...">&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;head&gt;&lt;title&gt;My Page&lt;/title&gt;&lt;/head&gt;
-&lt;body&gt;
-  &lt;h1&gt;Hello World&lt;/h1&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-</textarea>
+    <!-- Editors -->
+    <textarea id="htmlEditor" class="editor-box" style="width: 100%; height: 250px; padding: 1rem; border: none; font-family: monospace; font-size: 0.95rem;">
+<!DOCTYPE html>
+<html>
+<head><title>Hello World</title></head>
+<body>
+<h2>This is Hello World</h2>
+</body>
+</html>
+    </textarea>
 
-    <textarea id="cssEditor" class="editor-box" style="display: none; width: 100%; height: 250px; padding: 1rem; border: none; font-family: monospace; font-size: 0.95rem;">body {
+    <textarea id="cssEditor" class="editor-box" style="display: none; width: 100%; height: 250px; padding: 1rem; border: none; font-family: monospace; font-size: 0.95rem;">
+body {
   background-color: white;
   color: black;
   font-family: Arial;
-}</textarea>
+}
+    </textarea>
 
-    <textarea id="jsEditor" class="editor-box" style="display: none; width: 100%; height: 250px; padding: 1rem; border: none; font-family: monospace; font-size: 0.95rem;">console.log("Hello from JavaScript!");</textarea>
+    <textarea id="jsEditor" class="editor-box" style="display: none; width: 100%; height: 250px; padding: 1rem; border: none; font-family: monospace; font-size: 0.95rem;">
+console.log("Hello from Compiler 1 JS!");
+    </textarea>
 
+    <!-- Footer -->
     <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 1rem; background: #f1f1f1; border-top: 1px solid #ddd;">
       <button onclick="runUserCode()" style="background-color: #00c896; color: white; padding: 0.5rem 1rem; border: none; border-radius: 6px; font-weight: 600; cursor: pointer;">Run Code</button>
       <span style="color: #666; font-size: 0.9rem;">Live updates enabled</span>
@@ -1695,13 +1703,13 @@ body.dark-mode #code-compiler iframe#codePreview {
 </div>
 
 <script>
-  function switchTab1(tabId) {
+  function switchTab(tabId) {
     const editors = document.querySelectorAll('#code-compiler .editor-box');
     editors.forEach(editor => editor.style.display = 'none');
     document.getElementById(tabId).style.display = 'block';
   }
 
-  function runUserCode1() {
+  function runUserCode() {
     const html = document.getElementById('htmlEditor').value;
     const css = `<style>${document.getElementById('cssEditor').value}</style>`;
     const js = `<script>${document.getElementById('jsEditor').value}<\/script>`;
@@ -1709,9 +1717,31 @@ body.dark-mode #code-compiler iframe#codePreview {
     document.getElementById('codePreview').srcdoc = output;
   }
 
-  window.onload = runUserCode1;
+  window.addEventListener('load', runUserCode);
 </script>
 
+                        </div>
+                    
+                      </div>
+                    </div>
+                    
+                    <script>
+                      function switchTab(tabId) {
+                        const editors = document.querySelectorAll('#code-compiler .editor-box');
+                        editors.forEach(editor => editor.style.display = 'none');
+                        document.getElementById(tabId).style.display = 'block';
+                      }
+                    
+                      function runUserCode() {
+                        const html = document.getElementById('htmlEditor').value;
+                        const css = `<style>${document.getElementById('cssEditor').value}</style>`;
+                        const js = `<script>${document.getElementById('jsEditor').value}<\/script>`;
+                        const output = html.replace('</head>', css + '</head>').replace('</body>', js + '</body>');
+                        document.getElementById('codePreview').srcdoc = output;
+                      }
+                    
+                      window.onload = runUserCode;
+                    </script>                    
                           
                     
                     <h3>Understanding the Basic Structure</h3>
@@ -1760,61 +1790,91 @@ body.dark-mode #code-compiler iframe#codePreview {
                     <h2>Headings and Paragraphs</h2>
                     <p>HTML offers six levels of headings, from h1 (most important) to h6 (least important). Paragraphs are defined with the p tag.</p>
                     
-                    <div id="code-compiler" style="margin: 2rem auto; max-width: 1000px; font-family: 'Segoe UI', sans-serif;">
+                    <div id="code-compiler-2" style="margin: 2rem auto; max-width: 1000px; font-family: 'Segoe UI', sans-serif;">
   <div style="border-radius: 10px; overflow: hidden; background: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+    
+    <!-- Tabs -->
     <div style="display: flex; background-color: #00c896; color: #fff; font-weight: bold;">
-      <button onclick="switchTab('htmlEditor')" style="flex: 1; padding: 0.75rem; border: none; background: transparent; cursor: pointer;">HTML</button>
-      <button onclick="switchTab('cssEditor')" style="flex: 1; padding: 0.75rem; border: none; background: transparent; cursor: pointer;">CSS</button>
-      <button onclick="switchTab('jsEditor')" style="flex: 1; padding: 0.75rem; border: none; background: transparent; cursor: pointer;">JS</button>
+      <button onclick="switchTab2('htmlEditor2')" style="flex: 1; padding: 0.75rem; border: none; background: transparent; cursor: pointer;">HTML</button>
+      <button onclick="switchTab2('cssEditor2')" style="flex: 1; padding: 0.75rem; border: none; background: transparent; cursor: pointer;">CSS</button>
+      <button onclick="switchTab2('jsEditor2')" style="flex: 1; padding: 0.75rem; border: none; background: transparent; cursor: pointer;">JS</button>
     </div>
 
-    <label for="htmlEditor">HTML Editor</label>
-    <textarea id="htmlEditor" class="editor-box" placeholder="Write your HTML code here...">&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;head&gt;&lt;title&gt;My Page&lt;/title&gt;&lt;/head&gt;
-&lt;body&gt;
-  &lt;h1&gt;Hello World&lt;/h1&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-</textarea>
+    <!-- Editors -->
+    <textarea id="htmlEditor2" class="editor-box" style="width: 100%; height: 250px; padding: 1rem; border: none; font-family: monospace; font-size: 0.95rem;">
+<!DOCTYPE html>
+<html>
+<head><title>Hello World 2</title></head>
+<body>
+<h2>This is Hello World 2</h2>
+</body>
+</html>
+    </textarea>
 
-    <textarea id="cssEditor" class="editor-box" style="display: none; width: 100%; height: 250px; padding: 1rem; border: none; font-family: monospace; font-size: 0.95rem;">body {
+    <textarea id="cssEditor2" class="editor-box" style="display: none; width: 100%; height: 250px; padding: 1rem; border: none; font-family: monospace; font-size: 0.95rem;">
+body {
   background-color: white;
   color: black;
   font-family: Arial;
-}</textarea>
+}
+    </textarea>
 
-    <textarea id="jsEditor" class="editor-box" style="display: none; width: 100%; height: 250px; padding: 1rem; border: none; font-family: monospace; font-size: 0.95rem;">console.log("Hello from JavaScript!");</textarea>
+    <textarea id="jsEditor2" class="editor-box" style="display: none; width: 100%; height: 250px; padding: 1rem; border: none; font-family: monospace; font-size: 0.95rem;">
+console.log("Hello from Compiler 2 JS!");
+    </textarea>
 
+    <!-- Footer -->
     <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 1rem; background: #f1f1f1; border-top: 1px solid #ddd;">
-      <button onclick="runUserCode()" style="background-color: #00c896; color: white; padding: 0.5rem 1rem; border: none; border-radius: 6px; font-weight: 600; cursor: pointer;">Run Code</button>
+      <button onclick="runUserCode2()" style="background-color: #00c896; color: white; padding: 0.5rem 1rem; border: none; border-radius: 6px; font-weight: 600; cursor: pointer;">Run Code</button>
       <span style="color: #666; font-size: 0.9rem;">Live updates enabled</span>
     </div>
 
     <div style="padding: 1rem;">
       <h3 style="margin: 0 0 0.5rem;">Preview</h3>
-      <iframe id="codePreview" style="width: 100%; height: 350px; border: 1px solid #e0e0e0; border-radius: 8px;"></iframe>
+      <iframe id="codePreview2" style="width: 100%; height: 350px; border: 1px solid #e0e0e0; border-radius: 8px;"></iframe>
     </div>
   </div>
 </div>
 
 <script>
-  function switchTab(tabId) {
-    const editors = document.querySelectorAll('#code-compiler .editor-box');
+  function switchTab2(tabId) {
+    const editors = document.querySelectorAll('#code-compiler-2 .editor-box');
     editors.forEach(editor => editor.style.display = 'none');
     document.getElementById(tabId).style.display = 'block';
   }
 
-  function runUserCode() {
-    const html = document.getElementById('htmlEditor').value;
-    const css = `<style>${document.getElementById('cssEditor').value}</style>`;
-    const js = `<script>${document.getElementById('jsEditor').value}<\/script>`;
+  function runUserCode2() {
+    const html = document.getElementById('htmlEditor2').value;
+    const css = `<style>${document.getElementById('cssEditor2').value}</style>`;
+    const js = `<script>${document.getElementById('jsEditor2').value}<\/script>`;
     const output = html.replace('</head>', css + '</head>').replace('</body>', js + '</body>');
-    document.getElementById('codePreview').srcdoc = output;
+    document.getElementById('codePreview2').srcdoc = output;
   }
 
-  window.onload = runUserCode;
+  window.addEventListener('load', runUserCode2);
 </script>
+
+                    
+                      </div>
+                    </div>
+                    
+                    <script>
+                      function switchTab2(tabId) {
+                        const editors = document.querySelectorAll('#code-compiler-2 .editor-box');
+                        editors.forEach(editor => editor.style.display = 'none');
+                        document.getElementById(tabId).style.display = 'block';
+                      }
+                    
+                      function runUserCode2() {
+                        const html = document.getElementById('htmlEditor2').value;
+                        const css = `<style>${document.getElementById('cssEditor2').value}</style>`;
+                        const js = `<script>${document.getElementById('jsEditor2').value}<\/script>`;
+                        const output = html.replace('</head>', css + '</head>').replace('</body>', js + '</body>');
+                        document.getElementById('codePreview2').srcdoc = output;
+                      }
+                    
+                      window.addEventListener('load', runUserCode2);
+                    </script>                    
                             </div>
                         </div>
                       
