@@ -19,16 +19,20 @@
 --w3-gray: #282A35; /* W3Schools dark gray */
 --background-light: #f0f4f8;
 }
+html, body {
+  height: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
 body {
-font-family: 'Inter', system-ui, -apple-system, sans-serif;
-margin: 0;
-padding: 0;
-background-color: var(--background-light);
-min-height: 100vh;
-color: var(--dark);
-line-height: 1.6;
-display: flex;
-flex-direction: column;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: var(--background-light);
+  color: var(--dark);
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 /* Dark mode styles for code example sections */
@@ -436,12 +440,14 @@ text-align: center;
 }
 /* Main Content Styles */
 .main-content {
-margin-left: 260px; /* Matches sidebar width */
-padding: 80px 2rem 2rem; /* Adjusted padding, 80px matches header + some space */
-width: calc(100% - 260px);
-max-width: 1000px;
-box-sizing: border-box;
-flex: 1;
+  margin-left: 260px; /* Matches sidebar width */
+  padding: 80px 2rem 2rem; /* Adjusted padding, 80px matches header + some space */
+  width: calc(100% - 260px);
+  max-width: 100%;
+  box-sizing: border-box;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
 }
 /* Tutorial Content Styles */
 .tutorial-content {
@@ -651,7 +657,7 @@ section {
 }
 #code-compiler textarea.editor-box {
   width: 100%;
-  height: 250px;
+  height: 500px;
   padding: 1rem;
   border: none;
   font-family: monospace;
@@ -1080,11 +1086,11 @@ footer {
   transition: margin 0.3s ease;
 }
 
-  .footer-container {
-  max-width: none;
+.footer-container {
+  max-width: 100%;
   margin: 0;
-  padding-left: 2rem;
-  padding-right: 2rem;
+  padding-left: 0;
+  padding-right: 0;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 2rem;
@@ -1484,61 +1490,62 @@ header {
             </ul>
 
             <div id="java-compiler" style="margin: 2rem auto; max-width: 1000px; font-family: 'Segoe UI', sans-serif;">
-              <div style="border-radius: 10px; overflow: hidden; background: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
-                <div style="display: flex; background-color: #00c896; color: #fff; font-weight: bold;">
-                  <button style="flex: 1; padding: 0.75rem; border: none; background: transparent; cursor: default;">Java</button>
-                </div>
-            
-                <textarea id="javaEditor" class="editor-box" style="width: 100%; height: 250px; padding: 1rem; border: none; font-family: monospace; font-size: 0.95rem;">public class Main {
-                public static void main(String[] args) {
-                    System.out.println("Hello, Java World!");
-                }
-            }</textarea>
-            
-                <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 1rem; background: #f1f1f1; border-top: 1px solid #ddd;">
-                  <button onclick="runJavaCode()" style="background-color: #00c896; color: white; padding: 0.5rem 1rem; border: none; border-radius: 6px; font-weight: 600; cursor: pointer;">Run Java Code</button>
-                  <span style="color: #666; font-size: 0.9rem;">Live execution powered by JDoodle</span>
-                </div>
-            
-                <div style="padding: 1rem;">
-                  <h3 style="margin: 0 0 0.5rem;">Output</h3>
-                  <pre id="javaOutput" style="background: #f9f9f9; padding: 1rem; border-radius: 8px; border: 1px solid #e0e0e0; min-height: 120px; white-space: pre-wrap;"></pre>
-                </div>
-              </div>
-            </div>
-            
-            <script>
-              async function runJavaCode() {
-                const code = document.getElementById('javaEditor').value;
-                const outputEl = document.getElementById('javaOutput');
-            
-                // Show loading message
-                outputEl.textContent = "Running your code...";
-            
-                try {
-                  const response = await fetch("https://api.jdoodle.com/v1/execute", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                      clientId: "YOUR_CLIENT_ID",  // Replace with your JDoodle client ID
-                      clientSecret: "YOUR_CLIENT_SECRET",  // Replace with your JDoodle client secret
-                      script: code,
-                      language: "java",
-                      versionIndex: "4" // Java 11
-                    })
-                  });
-            
-                  const result = await response.json();
-                  if (result.output) {
-                    outputEl.textContent = result.output;
-                  } else {
-                    outputEl.textContent = "No output.";
-                  }
-                } catch (err) {
-                  outputEl.textContent = "Error running code: " + err.message;
-                }
-              }
-            </script>
+  <div style="border-radius: 10px; overflow: hidden; background: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+    <div style="display: flex; background-color: #00c896; color: #fff; font-weight: bold;">
+      <button style="flex: 1; padding: 0.75rem; border: none; background: transparent; cursor: default;">Java</button>
+    </div>
+
+    <textarea id="javaEditor" class="editor-box" style="width: 100%; height: 250px; padding: 1rem; border: none; font-family: monospace; font-size: 0.95rem;">public class Main {
+    public static void main(String[] args) {
+        System.out.println("Hello, Java World!");
+    }
+}</textarea>
+
+    <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 1rem; background: #f1f1f1; border-top: 1px solid #ddd;">
+      <button onclick="runJavaCode()" style="background-color: #00c896; color: white; padding: 0.5rem 1rem; border: none; border-radius: 6px; font-weight: 600; cursor: pointer;">Run Java Code</button>
+      <span style="color: #666; font-size: 0.9rem;">Live execution powered by JDoodle</span>
+    </div>
+
+    <div style="padding: 1rem;">
+      <h3 style="margin: 0 0 0.5rem;">Output</h3>
+      <pre id="javaOutput" style="background: #f9f9f9; padding: 1rem; border-radius: 8px; border: 1px solid #e0e0e0; min-height: 120px; white-space: pre-wrap;"></pre>
+    </div>
+  </div>
+</div>
+
+<script>
+  async function runJavaCode() {
+    const code = document.getElementById('javaEditor').value;
+    const outputEl = document.getElementById('javaOutput');
+
+    // Show loading message
+    outputEl.textContent = "Running your code...";
+
+    try {
+      const response = await fetch("https://api.jdoodle.com/v1/execute", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          clientId: "YOUR_CLIENT_ID",  // Replace with your JDoodle client ID
+          clientSecret: "YOUR_CLIENT_SECRET",  // Replace with your JDoodle client secret
+          script: code,
+          language: "java",
+          versionIndex: "4" // Java 11
+        })
+      });
+
+      const result = await response.json();
+      if (result.output) {
+        outputEl.textContent = result.output;
+      } else {
+        outputEl.textContent = "No output.";
+      }
+    } catch (err) {
+      outputEl.textContent = "Error running code: " + err.message;
+    }
+  }
+</script>
+
 
         <section id="control-flow">
             <h2>Control Flow</h2>
@@ -1651,60 +1658,58 @@ public class Main {
         
       </section>
   </div>
-<footer class="custom-footer-section" style="background-color: var(--dark); color: var(--light); padding: 2rem; box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05); position: relative; z-index: 10; margin: 0; width: 100%; box-sizing: border-box; transition: margin 0.3s ease;">
-<div class="footer-container" style="max-width: 100%; width: 100%; margin: 0; padding-left: 2rem; padding-right: 2rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem;">
-<div class="footer-column">
-<div class="footer-logo" style="display: flex; align-items: center; margin-bottom: 1rem; font-weight: 700; font-size: 1.2rem;">
-Web <span class="stack">Stack</span> Hub
-</div>
-<p>Learn web development with our comprehensive tutorials, references, and interactive coding environment.</p>
-<div class="social-links" style="display: flex; gap: 1rem; margin-top: 1rem;">
-<a href="#" style="display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 50%; background-color: #f5f5f5; color: var(--dark); transition: all 0.3s ease;"><i class="fab fa-facebook-f"></i></a>
-<a href="#" style="display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 50%; background-color: #f5f5f5; color: var(--dark); transition: all 0.3s ease;"><i class="fab fa-twitter"></i></a>
-<a href="#" style="display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 50%; background-color: #f5f5f5; color: var(--dark); transition: all 0.3s ease;"><i class="fab fa-github"></i></a>
-<a href="#" style="display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 50%; background-color: #f5f5f5; color: var(--dark); transition: all 0.3s ease;"><i class="fab fa-linkedin-in"></i></a>
-<a href="#" style="display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 50%; background-color: #f5f5f5; color: var(--dark); transition: all 0.3s ease;"><i class="fab fa-youtube"></i></a>
-</div>
-</div>
-  
-      <div class="footer-column">
-        <h3>Learn</h3>
-        <ul>
-          <li><a href="#">HTML</a></li>
-          <li><a href="#">CSS</a></li>
-          <li><a href="#">JavaScript</a></li>
-          <li><a href="#">Python</a></li>
-          <li><a href="#">PHP</a></li>
+<footer style="width: 100%; max-width: 100vw; background-color: #000; color: #fff; padding: 3rem 1rem 1.5rem; box-sizing: border-box;">
+  <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; align-items: center;">
+    <div style="text-align: center; margin-bottom: 2rem; display: flex; flex-direction: column; align-items: center;">
+      <h2 style="font-size: 2rem; margin-bottom: 0.5rem;"><span style="color: #00c08b;">Web</span>StackHub</h2>
+      <p style="max-width: 600px; margin: 0 auto 1rem auto; font-size: 1rem; line-height: 1.5; color: #ccc;">
+        Learn web development with our comprehensive tutorials, references, and interactive coding environment.
+      </p>
+      <div class="social-links" style="margin-top: 1rem; justify-content: center;">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-github"></i></a>
+        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#"><i class="fab fa-youtube"></i></a>
+      </div>
+    </div>
+    <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 3rem; text-align: center; margin-bottom: 2rem;">
+      <div style="min-width: 150px;">
+        <h3 style="margin-bottom: 0.5rem; color: #00c08b; font-size: 1.1rem;">Learn</h3>
+        <ul style="list-style: none; padding: 0;">
+          <li style="margin: 0.3rem 0; color: #ccc;">HTML</li>
+          <li style="margin: 0.3rem 0; color: #ccc;">CSS</li>
+          <li style="margin: 0.3rem 0; color: #ccc;">JavaScript</li>
+          <li style="margin: 0.3rem 0; color: #ccc;">Python</li>
+          <li style="margin: 0.3rem 0; color: #ccc;">PHP</li>
         </ul>
       </div>
-  
-      <div class="footer-column">
-        <h3>Resources</h3>
-        <ul>
-          <li><a href="#">References</a></li>
-          <li><a href="#">Exercises</a></li>
-          <li><a href="#">Projects</a></li>
-          <li><a href="#">Quiz</a></li>
-          <li><a href="#">Certificates</a></li>
+      <div style="min-width: 150px;">
+        <h3 style="margin-bottom: 0.5rem; color: #00c08b; font-size: 1.1rem;">Resources</h3>
+        <ul style="list-style: none; padding: 0;">
+          <li style="margin: 0.3rem 0; color: #ccc;">References</li>
+          <li style="margin: 0.3rem 0; color: #ccc;">Exercises</li>
+          <li style="margin: 0.3rem 0; color: #ccc;">Projects</li>
+          <li style="margin: 0.3rem 0; color: #ccc;">Quiz</li>
+          <li style="margin: 0.3rem 0; color: #ccc;">Certificates</li>
         </ul>
       </div>
-  
-      <div class="footer-column">
-        <h3>Company</h3>
-        <ul>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Careers</a></li>
-          <li><a href="#">Privacy Policy</a></li>
-          <li><a href="#">Terms of Service</a></li>
-          <li><a href="#">Contact Us</a></li>
+      <div style="min-width: 150px;">
+        <h3 style="margin-bottom: 0.5rem; color: #00c08b; font-size: 1.1rem;">Company</h3>
+        <ul style="list-style: none; padding: 0;">
+          <li style="margin: 0.3rem 0; color: #ccc;">About</li>
+          <li style="margin: 0.3rem 0; color: #ccc;">Careers</li>
+          <li style="margin: 0.3rem 0; color: #ccc;">Privacy Policy</li>
+          <li style="margin: 0.3rem 0; color: #ccc;">Terms</li>
+          <li style="margin: 0.3rem 0; color: #ccc;">Contact</li>
         </ul>
       </div>
     </div>
-  
-    <div class="footer-bottom">
-      <p>&copy; 2025 Web Stack Hub - All Rights Reserved</p>
+    <div style="border-top: 1px solid #444; padding-top: 1rem; font-size: 0.9rem; color: #777; text-align: center; width: 100%;">
+      © 2025 WebStackHub. All rights reserved.
     </div>
-  </footer>
+  </div>
+</footer>
 </main>
 
 <!-- Scripts -->
